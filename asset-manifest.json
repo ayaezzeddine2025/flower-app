@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/flower-app/static/css/main.7a27251a.css",
+    "main.js": "/flower-app/static/js/main.a2f37368.js",
+    "index.html": "/flower-app/index.html",
+    "main.7a27251a.css.map": "/flower-app/static/css/main.7a27251a.css.map",
+    "main.a2f37368.js.map": "/flower-app/static/js/main.a2f37368.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7a27251a.css",
+    "static/js/main.a2f37368.js"
+  ]
+}
