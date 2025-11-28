@@ -68,3 +68,22 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+# 🌸 Flower App
+
+A simple and beautiful React application that displays flowers, their meanings, and motivational daily messages.  
+The project includes multiple pages such as the Flowers page, Daily Message page, and Timeline page.  
+It is designed to be clean, responsive, and user-friendly.
+
+---
+
+## 🚀 Features
+- Display a collection of flowers with names, meanings, and properties.
+- Random daily motivational messages (English & Arabic).
+- Timeline page to track saved notes or completed tasks.
+- Responsive layout for mobile, tablet, and desktop.
+- Clean UI with smooth navigation.
+
+---
+

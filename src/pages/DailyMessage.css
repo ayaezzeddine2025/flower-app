@@ -1,0 +1,64 @@
+.daily-message-page {
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Side-by-side layout for image and message */
+.daily-message-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap; /* stack on small screens */
+  margin-bottom: 2rem;
+}
+
+.daily-message-content img {
+  width: 300px;   /* slightly larger */
+  height: 350px;
+  border-radius: 50px;
+  object-fit: cover;
+}
+
+.daily-message-info {
+  max-width: 400px;
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+/* Note box below the image and message */
+.note-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.note-box textarea {
+  width: 60%;
+  height: 100px;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.note-box button {
+  padding: 0.5rem 1rem;
+  background-color: #b03a2e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.note-box button:hover {
+  background-color: #8a2b20;
+}
+
+.message-warning {
+  text-align: center;
+  margin-top: 2rem;
+  font-weight: bold;
+  color: #b03a2e;
+}

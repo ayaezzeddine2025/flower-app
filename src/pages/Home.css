@@ -1,0 +1,55 @@
+.note-entry {
+  display: flex;
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #fffaf0;
+}
+
+.note-entry img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.note-info {
+  flex: 1; /* take all available space */
+  text-align: left;
+}
+
+.note-info p {
+  margin: 0.2rem 0;
+}
+
+.note-date {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+/* Delete button aligned to the right */
+.delete-btn {
+  padding: 0.4rem 0.8rem;
+  background-color: #b03a2e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-left: auto; /* pushes button to the far right */
+  transition: background-color 0.2s;
+}
+
+.delete-btn:hover {
+  background-color: #8a2b20;
+}
+
+/* Encouragement text */
+.encouragement {
+  font-style: italic;
+  color: #555;
+  margin-top: 2rem;
+}

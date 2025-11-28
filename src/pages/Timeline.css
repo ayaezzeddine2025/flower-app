@@ -1,0 +1,90 @@
+.timeline-page {
+  padding: 2rem;
+  position: relative;
+}
+
+.timeline-empty {
+  text-align: center;
+  color: #b03a2e;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+
+.timeline-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* push checkbox to the right */
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.timeline-entry img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  margin-right: 1rem;
+}
+
+.entry-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.flower-name {
+  font-weight: bold;
+  color: #b03a2e;
+}
+
+.flower-date {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.flower-note {
+  font-style: italic;
+  color: #333;
+}
+
+/* Highlight favorite flowers */
+.timeline-entry.favorite {
+  background-color: #fff0f0; /* light red/pink background */
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.flower-favorite {
+  color: #b03a2e;
+  font-weight: bold;
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+}
+
+/* Delete Selected button at top-right */
+.delete-selected-btn {
+  padding: 0.5rem 1rem;
+  background-color: #b03a2e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+  margin-bottom: 1rem;
+}
+
+.delete-selected-btn:hover {
+  background-color: #8a2b20;
+}
+
+/* Checkbox styling */
+.timeline-entry input[type="checkbox"] {
+  transform: scale(1.2);
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+/* Highlight selected rows */
+.timeline-entry.selected {
+  background-color: #ffe6e6; /* light pink */
+  border-radius: 5px;
+}

@@ -1,0 +1,107 @@
+.flower-page {
+  padding: 2rem;
+  text-align: center;
+}
+
+.flower-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 per line on desktop */
+  gap: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .flower-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .flower-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .flower-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.flower-card {
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0.5rem;
+  transition: transform 0.2s;
+  overflow: hidden;
+}
+
+.flower-card img {
+  width: 100%;          /* full width of card */
+  max-width: 270px;     /* slightly increased width */
+  height: 350px;        /* same height for all images */
+  object-fit: cover;    /* fill container without stretching */
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;       /* center inside card */
+}
+
+.flower-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+}
+
+.selected-flower img {
+  width: 100%;
+  max-width: 270px;     /* match grid images */
+  height: 350px;        /* same height */
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.selected-flower button {
+  padding: 0.5rem 1rem;
+  background-color: #b03a2e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.selected-flower button:hover {
+  background-color: #8a2b20;
+}
+
+.selected-flower-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 4rem;           /* space between image and description */
+  justify-content: center;
+  flex-wrap: wrap;      /* responsive for small screens */
+}
+
+.selected-flower-row img {
+  max-width: 500px;
+  height: 450px;
+}
+
+.flower-info {
+  max-width: 400px;
+  text-align: left;
+}
+
+/* ✅ Properties bullet points */
+.flower-info ul {
+  margin-top: 0.5rem;      /* space above the list */
+  padding-left: 1.2rem;    /* indent bullets nicely */
+}
+
+.flower-info li {
+  margin-bottom: 4px;      /* space between lines */
+  line-height: 1.4;        /* easier to read */
+}
