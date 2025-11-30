@@ -13,7 +13,7 @@
 .timeline-entry {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* push checkbox to the right */
+  justify-content: space-between;
   margin-bottom: 1rem;
   border-bottom: 1px solid #eee;
   padding-bottom: 0.5rem;
@@ -46,9 +46,8 @@
   color: #333;
 }
 
-/* Highlight favorite flowers */
 .timeline-entry.favorite {
-  background-color: #fff0f0; /* light red/pink background */
+  background-color: #fff0f0;
   border-radius: 8px;
   padding: 0.5rem;
 }
@@ -60,7 +59,6 @@
   font-size: 0.9rem;
 }
 
-/* Delete Selected button at top-right */
 .delete-selected-btn {
   padding: 0.5rem 1rem;
   background-color: #b03a2e;
@@ -76,15 +74,13 @@
   background-color: #8a2b20;
 }
 
-/* Checkbox styling */
 .timeline-entry input[type="checkbox"] {
   transform: scale(1.2);
   cursor: pointer;
   margin-left: 1rem;
 }
 
-/* Highlight selected rows */
 .timeline-entry.selected {
-  background-color: #ffe6e6; /* light pink */
+  background-color: #ffe6e6;
   border-radius: 5px;
 }

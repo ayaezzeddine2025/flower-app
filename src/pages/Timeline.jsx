@@ -10,14 +10,12 @@ function Timeline() {
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [history, setHistory] = useState(user?.history || []);
 
-  // Toggle checkbox selection
   const toggleSelect = (index) => {
     setSelectedIndexes((prev) =>
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
   };
 
-  // Delete all selected entries
   const deleteSelected = () => {
     if (selectedIndexes.length === 0) {
       alert("Please select at least one entry to delete.");
@@ -29,7 +27,6 @@ function Timeline() {
     setHistory(newHistory);
     setSelectedIndexes([]);
 
-    // Update localStorage
     if (user) {
       user.history = newHistory;
       localStorage.setItem("users", JSON.stringify(users));

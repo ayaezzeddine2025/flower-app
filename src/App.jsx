@@ -16,7 +16,6 @@ import "./App.css";
 function App() {
   const [currentUser, setCurrentUser] = useState(localStorage.getItem("currentUser") || null);
 
-  // Sync currentUser with localStorage
   useEffect(() => {
     if (currentUser) {
       localStorage.setItem("currentUser", currentUser);

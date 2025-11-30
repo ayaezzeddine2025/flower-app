@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { flowers } from "../data/flowers";
 import "./DailyMessage.css";
 
@@ -49,7 +49,6 @@ function DailyMessage() {
   const currentUser = localStorage.getItem("currentUser") || "guest";
 
   useEffect(() => {
-    // Pick the last selected flower or a random one
     const lastFlowerId = localStorage.getItem("lastFlowerId");
     let selectedFlower;
 
@@ -65,7 +64,6 @@ function DailyMessage() {
     setFlower(selectedFlower);
     localStorage.setItem("lastFlowerId", selectedFlower.id);
 
-    // Pick a random message from the new messages array
     const randomMsgIndex = Math.floor(Math.random() * messages.length);
     setDisplayMessage(messages[randomMsgIndex]);
   },[]);

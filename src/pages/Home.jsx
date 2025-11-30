@@ -13,7 +13,6 @@ function Home() {
 
   useEffect(() => {
     loadNotes();
-    // Listen for localStorage changes (other tabs)
     const handleStorage = () => loadNotes();
     window.addEventListener("storage", handleStorage);
     return () => window.removeEventListener("storage", handleStorage);

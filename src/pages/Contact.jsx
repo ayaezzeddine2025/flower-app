@@ -1,4 +1,3 @@
-// src/pages/Contact/Contact.jsx
 import React, { useState } from "react";
 import "./Contact.css";
 

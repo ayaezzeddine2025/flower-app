@@ -17,7 +17,7 @@
 }
 
 .note-info {
-  flex: 1; /* take all available space */
+  flex: 1;
   text-align: left;
 }
 
@@ -30,7 +30,6 @@
   color: #555;
 }
 
-/* Delete button aligned to the right */
 .delete-btn {
   padding: 0.4rem 0.8rem;
   background-color: #b03a2e;
@@ -39,7 +38,7 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.85rem;
-  margin-left: auto; /* pushes button to the far right */
+  margin-left: auto;
   transition: background-color 0.2s;
 }
 
@@ -47,7 +46,6 @@
   background-color: #8a2b20;
 }
 
-/* Encouragement text */
 .encouragement {
   font-style: italic;
   color: #555;

@@ -3,18 +3,17 @@
   padding: 2rem;
 }
 
-/* Side-by-side layout for image and message */
 .daily-message-content {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  flex-wrap: wrap; /* stack on small screens */
+  flex-wrap: wrap;
   margin-bottom: 2rem;
 }
 
 .daily-message-content img {
-  width: 300px;   /* slightly larger */
+  width: 300px;
   height: 350px;
   border-radius: 50px;
   object-fit: cover;
@@ -26,7 +25,6 @@
   font-size: 1.2rem;
 }
 
-/* Note box below the image and message */
 .note-box {
   display: flex;
   flex-direction: column;
