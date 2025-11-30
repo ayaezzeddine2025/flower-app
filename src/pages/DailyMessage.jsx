@@ -94,7 +94,8 @@ function DailyMessage() {
   return (
     <div className="daily-message-page">
       <div className="daily-message-content">
-        <img src={flower.img} alt={flower.name} />
+        <img src={process.env.PUBLIC_URL + flower.img} alt={flower.name}/>
+
         <div className="daily-message-info">
           <p>{flower.name}</p>
           <h3>{displayMessage}</h3>
