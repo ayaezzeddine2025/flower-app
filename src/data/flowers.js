@@ -2,7 +2,7 @@ export const flowers = [
   {
     id: 1,
     name: 'Aster',
-    img: '/assets/aster.jpg',
+    img: process.env.PUBLIC_URL +'/assets/aster.jpg',
     meaning: 'Patience, elegance, and daintiness.',
     properties:[
       'Color range: purple, pink, white, blue.',
@@ -16,7 +16,7 @@ export const flowers = [
   {
     id: 2,
     name: 'Anthurium',
-    img: '/assets/anthurium.jpg',
+    img: process.env.PUBLIC_URL +'/assets/anthurium.jpg',
     meaning: 'Hospitality, happiness, and abundance.',
     properties:[
       'Appearance: glossy heart-shaped spathe with central spadix.',
@@ -30,7 +30,7 @@ export const flowers = [
   {
     id: 3,
     name: 'Bird of Paradise',
-    img: '/assets/bird_of_paradise.jpg',
+    img: process.env.PUBLIC_URL +'/assets/bird_of_paradise.jpg',
     meaning: 'Joy, paradise, and freedom.',
     properties:[
       'Form: dramatic, crane-like inflorescence.',
@@ -43,7 +43,7 @@ export const flowers = [
   },{
     id: 4,
     name: 'Bougainvillea',
-    img: '/assets/bougainvillea.jpg',
+    img: process.env.PUBLIC_URL +'/assets/bougainvillea.jpg',
     meaning: 'Passion, welcome, and vibrant energy.',
     properties:[
       'Bracts: colorful papery bracts (not true petals).',
@@ -56,7 +56,7 @@ export const flowers = [
   },{
     id:5 ,
     name: 'Calla Lily',
-    img: '/assets/calla_lily.jpg',
+    img: process.env.PUBLIC_URL +'/assets/calla_lily.jpg',
     meaning: 'Purity, rebirth, and magnificent beauty.',
     properties:[
       'Shape: elegant funnel-shaped spathe.',
@@ -69,7 +69,7 @@ export const flowers = [
   },{
     id:6 ,
     name: 'Camellia',
-    img: '/assets/camellia.jpg',
+    img: process.env.PUBLIC_URL +'/assets/camellia.jpg',
     meaning: 'Admiration, perfection, and devotion.',
     properties:[
       'Bloom time: fall to spring depending on species.',
@@ -82,7 +82,7 @@ export const flowers = [
     },{
     id: 7,
     name: 'Carnation',
-    img: '/assets/carnation.jpg',
+    img: process.env.PUBLIC_URL +'/assets/carnation.jpg',
     meaning: 'Fascination, distinction, and love.',
     properties:[
       'Petals: ruffled, frilled edges.',
@@ -94,7 +94,7 @@ export const flowers = [
     ]},{
     id: 8,
     name: 'Celosia',
-    img: '/assets/celosia.jpg',
+    img: process.env.PUBLIC_URL +'/assets/celosia.jpg',
     meaning: 'Boldness, uniqueness, and warmth.',
     properties:[
       'Forms: plume, cockscomb, or wheat-like spikes.',
@@ -106,7 +106,7 @@ export const flowers = [
     ]},{
     id: 9,
     name: 'Chrysanthemum',
-    img: '/assets/chrysanthemum.jpg',
+    img: process.env.PUBLIC_URL +'/assets/chrysanthemum.jpg',
     meaning: 'Longevity, joy, and fidelity.',
     properties:[
       'Variety: many forms—pompon, daisy, spider.',
@@ -118,7 +118,7 @@ export const flowers = [
     ]},{
     id: 10,
     name: 'Cosmos',
-    img: '/assets/cosmos.jpg',
+    img: process.env.PUBLIC_URL +'/assets/cosmos.jpg',
     meaning: 'Order, harmony, and modesty.',
     properties:[
       'Form: daisy-like, airy foliage.',
@@ -130,7 +130,7 @@ export const flowers = [
     ]},{
     id: 11,
     name: 'Daffodil',
-    img: '/assets/daffodil.jpg',
+    img: process.env.PUBLIC_URL +'/assets/daffodil.jpg',
     meaning: 'Renewal, hope, and new beginnings.',
     properties: [
       'Form: Trumpet-shaped corona',
@@ -144,7 +144,7 @@ export const flowers = [
   {
     id: 12,
     name: 'Dahlia',
-    img: '/assets/dahlia.jpg',
+    img: process.env.PUBLIC_URL +'/assets/dahlia.jpg',
     meaning: 'Dignity, elegance, and inner strength.',
     properties: [
       'Form: Tuberous perennial with many bloom forms',
@@ -158,7 +158,7 @@ export const flowers = [
   {
     id: 13,
     name: 'Daisy',
-    img: '/assets/daisy.jpg',
+    img: process.env.PUBLIC_URL +'/assets/daisy.jpg',
     meaning: 'Innocence, purity, and simplicity.',
     properties: [
       'Form: Classic ray and disk florets',
@@ -172,7 +172,7 @@ export const flowers = [
   {
     id: 14,
     name: 'Forget-me-not',
-    img: '/assets/forget_me_not.jpg',
+    img: process.env.PUBLIC_URL +'/assets/forget_me_not.jpg',
     meaning: 'Remembrance, true love, and fidelity.',
     properties: [
       'Form: Tiny five-petaled clusters',
@@ -186,7 +186,7 @@ export const flowers = [
   {
     id: 15,
     name: 'Gardenia',
-    img: '/assets/gardenia.jpg',
+    img: process.env.PUBLIC_URL +'/assets/gardenia.jpg',
     meaning: 'Secret love, purity, and refinement.',
     properties: [
       'Form: Fragrant white double blooms',
@@ -200,7 +200,7 @@ export const flowers = [
   {
     id: 16,
     name: 'Gerbera Daisy',
-    img: '/assets/gerbera_daisy.jpg',
+    img: process.env.PUBLIC_URL +'/assets/gerbera_daisy.jpg',
     meaning: 'Cheerfulness, innocence, and vibrant joy.',
     properties: [
       'Form: Large single or double flower heads',
@@ -214,7 +214,7 @@ export const flowers = [
   {
     id: 17,
     name: 'Gladiolus',
-    img: '/assets/gladiolus.jpg',
+    img: process.env.PUBLIC_URL +'/assets/gladiolus.jpg',
     meaning: 'Strength, integrity, and remembrance.',
     properties: [
       'Form: Tall spikes of funnel-shaped florets',
@@ -228,7 +228,7 @@ export const flowers = [
   {
     id: 18,
     name: 'Hibiscus',
-    img: '/assets/hibiscus.jpg',
+    img: process.env.PUBLIC_URL +'/assets/hibiscus.jpg',
     meaning: 'Delicate beauty, fame, and hospitality.',
     properties: [
       'Form: Large tropical or hardy blooms',
@@ -242,7 +242,7 @@ export const flowers = [
   {
     id: 19,
     name: 'Jasmine',
-    img: '/assets/jasmine.jpg',
+    img: process.env.PUBLIC_URL +'/assets/jasmine.jpg',
     meaning: 'Love, purity, and sensuality.',
     properties: [
       'Form: Small star-shaped, fragrant flowers',
@@ -256,7 +256,7 @@ export const flowers = [
   {
     id: 20,
     name: 'Lantana',
-    img: '/assets/lantana.jpg',
+    img: process.env.PUBLIC_URL +'/assets/lantana.jpg',
     meaning: 'Colorful energy, versatility, and resilience.',
     properties: [
       'Form: Clusters of tiny multi-colored florets',
@@ -270,7 +270,7 @@ export const flowers = [
   {
     id: 21,
     name: 'Lavender',
-    img: '/assets/lavender.jpg',
+    img: process.env.PUBLIC_URL +'/assets/lavender.jpg',
     meaning: 'Calm, devotion, and serenity.',
     properties: [
       'Form: Aromatic spikes of tiny flowers',
@@ -284,7 +284,7 @@ export const flowers = [
   {
     id: 22,
     name: 'Lilac',
-    img: '/assets/lilac.jpg',
+    img: process.env.PUBLIC_URL +'/assets/lilac.jpg',
     meaning: 'First love, youthful innocence, and renewal.',
     properties: [
       'Form: Fragrant flower panicles in spring',
@@ -298,7 +298,7 @@ export const flowers = [
   {
     id: 23,
     name: 'Lily',
-    img: '/assets/lily.jpg',
+    img: process.env.PUBLIC_URL +'/assets/lily.jpg',
     meaning: 'Purity, transience, and refined beauty.',
     properties: [
       'Form: Trumpet, bowl, or recurved petals',
@@ -312,7 +312,7 @@ export const flowers = [
   {
     id: 24,
     name: 'Lotus',
-    img: '/assets/lotus.jpg',
+    img: process.env.PUBLIC_URL +'/assets/lotus.jpg',
     meaning: 'Spiritual purity, rebirth, and enlightenment.',
     properties: [
       'Form: Large aquatic blooms rising above water',
@@ -326,7 +326,7 @@ export const flowers = [
   {
     id: 25,
     name: 'Marigold',
-    img: '/assets/marigold.jpg',
+    img: process.env.PUBLIC_URL +'/assets/marigold.jpg',
     meaning: 'Passion, creativity, and remembrance.',
     properties: [
       'Form: Pompon or daisy-like blooms',
@@ -340,7 +340,7 @@ export const flowers = [
   {
     id: 26,
     name: 'Orchid',
-    img: '/assets/orchid.jpg',
+    img: process.env.PUBLIC_URL +'/assets/orchid.jpg',
     meaning: 'Luxury, refinement, and rare beauty.',
     properties: [
       'Form: Diverse exotic floral structures',
@@ -354,7 +354,7 @@ export const flowers = [
   {
     id: 27,
     name: 'Plumeria',
-    img: '/assets/plumeria.jpg',
+    img: process.env.PUBLIC_URL +'/assets/plumeria.jpg',
     meaning: 'Grace, new beginnings, and tropical charm.',
     properties: [
       'Form: Fragrant five-petaled blooms',
@@ -368,7 +368,7 @@ export const flowers = [
   {
     id: 28,
     name: 'Poppy',
-    img: '/assets/poppy.jpg',
+    img: process.env.PUBLIC_URL +'/assets/poppy.jpg',
     meaning: 'Remembrance, consolation, and sleep.',
     properties: [
       'Form: Papery single or double petals',
@@ -382,7 +382,7 @@ export const flowers = [
   {
     id: 29,
     name: 'Prunus Cerasifera',
-    img: '/assets/prunus_cerasifera.jpg',
+    img: process.env.PUBLIC_URL +'/assets/prunus_cerasifera.jpg',
     meaning: 'Early beauty, renewal, and ornamental charm.',
     properties: [
       'Form: Small tree with spring blossoms',
@@ -396,7 +396,7 @@ export const flowers = [
   {
     id: 30,
     name: 'Rose',
-    img: '/assets/rose.jpg',
+    img: process.env.PUBLIC_URL +'/assets/rose.jpg',
     meaning: 'Love, passion, and beauty.',
     properties: [
       'Form: Layered petals with many growth habits',
@@ -410,7 +410,7 @@ export const flowers = [
   {
     id: 31,
     name: 'Sunflower',
-    img: '/assets/sunflower.jpg',
+    img: process.env.PUBLIC_URL +'/assets/sunflower.jpg',
     meaning: 'Adoration, loyalty, and warmth.',
     properties: [
       'Form: Large composite head with central disk',
@@ -424,7 +424,7 @@ export const flowers = [
   {
     id: 32,
     name: 'Tulip',
-    img: '/assets/tulip.jpg',
+    img: process.env.PUBLIC_URL +'/assets/tulip.jpg',
     meaning: 'Perfect love, elegance, and spring renewal.',
     properties: [
       'Form: Cup-shaped blooms',
@@ -438,7 +438,7 @@ export const flowers = [
   {
     id: 33,
     name: 'Violas',
-    img: '/assets/violas.jpg',
+    img: process.env.PUBLIC_URL +'/assets/violas.jpg',
     meaning: 'Modesty, affection, and remembrance.',
     properties: [
       'Form: Small pansy-like faces',
@@ -452,7 +452,7 @@ export const flowers = [
   {
     id: 34,
     name: 'Zinnia',
-    img: '/assets/zinnia.jpg',
+    img: process.env.PUBLIC_URL +'/assets/zinnia.jpg',
     meaning: 'Endurance, lasting affection, and remembrance.',
     properties: [
       'Form: Daisy-like or pompon blooms',
