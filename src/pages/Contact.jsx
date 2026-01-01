@@ -1,13 +1,25 @@
 import React, { useState } from "react";
 import "./Contact.css";
+import axios from "axios"; // import Axios
 
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Thank you for contacting us!");
-    setForm({ name: "", email: "", message: "" });
+    setLoading(true);
+
+    try {
+      await axios.post("http://localhost:5000/contact", form);
+      alert("Thank you for contacting us! Your message has been sent.");
+      setForm({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error("Error sending message:", err);
+      alert("Failed to send message. Please try again later.");
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -34,7 +46,9 @@ function Contact() {
           onChange={(e) => setForm({ ...form, message: e.target.value })}
           required
         />
-        <button type="submit">Send</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Sending..." : "Send"}
+        </button>
       </form>
     </div>
   );

@@ -12,24 +12,48 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 import "./App.css";
+import axios from "axios"; // new import
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(localStorage.getItem("currentUser") || null);
+  const [currentUser, setCurrentUser] = useState(null);
 
+  // optional: check if user is logged in from backend on mount
   useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem("currentUser", currentUser);
-    } else {
-      localStorage.removeItem("currentUser");
-    }
-  }, [currentUser]);
+    const checkUser = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/currentUser", {
+          withCredentials: true, // if using sessions/cookies
+        });
+        if (res.data.username) {
+          setCurrentUser(res.data.username);
+        }
+      } catch (err) {
+        console.log("No active user session");
+      }
+    };
+    checkUser();
+  }, []);
 
-  const handleLogin = (username) => {
-    setCurrentUser(username);
+  const handleLogin = async (username, password) => {
+    try {
+      const res = await axios.post("http://localhost:5000/login", { username, password }, { withCredentials: true });
+      if (res.data.success) {
+        setCurrentUser(res.data.username);
+      } else {
+        alert("Invalid credentials");
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const handleLogout = () => {
-    setCurrentUser(null);
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:5000/logout", {}, { withCredentials: true });
+      setCurrentUser(null);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

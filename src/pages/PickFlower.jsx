@@ -1,44 +1,49 @@
 import React, { useState } from "react";
 import { flowers } from "../data/flowers";
 import "./PickFlower.css";
+import axios from "axios"; // new import
 
 function PickFlower() {
   const [selected, setSelected] = useState(null);
+  const currentUser = localStorage.getItem("currentUser");
 
-  const handleSelect = (flower) => {
+  const handleSelect = async (flower) => {
     setSelected(flower);
 
     const audio = new Audio(flower.sound);
     audio.play();
 
-    const currentUser = localStorage.getItem("currentUser");
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const user = users.find(u => u.username === currentUser);
-    if (user) {
-      user.history.push({ 
-        flowerId: flower.id, 
-        flowerName: flower.name,
-        date: new Date(),
-      });
-      localStorage.setItem("users", JSON.stringify(users));
+    // Save selection to backend history
+    if (currentUser) {
+      try {
+        await axios.post("http://localhost:5000/history", {
+          username: currentUser,
+          flowerId: flower.id,
+          flowerName: flower.name,
+          date: new Date(),
+          favorite: false,
+        });
+      } catch (err) {
+        console.error("Error saving history:", err);
+      }
     }
   };
 
-  const addToFavorites = () => {
-    if (!selected) return;
+  const addToFavorites = async () => {
+    if (!selected || !currentUser) return;
 
-    const currentUser = localStorage.getItem("currentUser");
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const user = users.find(u => u.username === currentUser);
-    if (user) {
-      user.history.push({
+    try {
+      await axios.post("http://localhost:5000/history", {
+        username: currentUser,
         flowerId: selected.id,
         flowerName: selected.name,
         date: new Date(),
         favorite: true,
       });
-      localStorage.setItem("users", JSON.stringify(users));
       alert(`${selected.name} added to favorites!`);
+    } catch (err) {
+      console.error("Error adding to favorites:", err);
+      alert("Failed to add to favorites.");
     }
   };
 

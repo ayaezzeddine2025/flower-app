@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { flowers } from "../data/flowers";
 import "./Timeline.css";
+import axios from "axios";
 
 function Timeline() {
   const currentUser = localStorage.getItem("currentUser");
-  const users = JSON.parse(localStorage.getItem("users") || "[]");
-  const user = users.find(u => u.username === currentUser);
-
+  const [history, setHistory] = useState([]);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
-  const [history, setHistory] = useState(user?.history || []);
+
+  // Fetch user history from backend
+  useEffect(() => {
+    const fetchHistory = async () => {
+      if (!currentUser) return;
+      try {
+        const res = await axios.get(`http://localhost:5000/history?username=${currentUser}`);
+        setHistory(res.data);
+      } catch (err) {
+        console.error("Error fetching history:", err);
+      }
+    };
+    fetchHistory();
+  }, [currentUser]);
 
   const toggleSelect = (index) => {
     setSelectedIndexes((prev) =>
@@ -16,20 +28,27 @@ function Timeline() {
     );
   };
 
-  const deleteSelected = () => {
+  const deleteSelected = async () => {
     if (selectedIndexes.length === 0) {
       alert("Please select at least one entry to delete.");
       return;
     }
     if (!window.confirm("Are you sure you want to delete the selected entries?")) return;
 
-    const newHistory = history.filter((_, idx) => !selectedIndexes.includes(idx));
-    setHistory(newHistory);
-    setSelectedIndexes([]);
+    try {
+      // Delete selected entries from backend
+      const selectedIds = selectedIndexes.map(i => history[i].id);
+      await Promise.all(
+        selectedIds.map(id => axios.delete(`http://localhost:5000/history/${id}`))
+      );
 
-    if (user) {
-      user.history = newHistory;
-      localStorage.setItem("users", JSON.stringify(users));
+      // Update local state
+      const newHistory = history.filter((_, idx) => !selectedIndexes.includes(idx));
+      setHistory(newHistory);
+      setSelectedIndexes([]);
+    } catch (err) {
+      console.error("Error deleting entries:", err);
+      alert("Failed to delete entries.");
     }
   };
 
@@ -53,7 +72,7 @@ function Timeline() {
 
             return (
               <li
-                key={index}
+                key={entry.id} // use backend id
                 className={`timeline-entry ${entry.favorite ? "favorite" : ""} ${
                   selectedIndexes.includes(index) ? "selected" : ""
                 }`}
@@ -69,7 +88,6 @@ function Timeline() {
                   </div>
                 </div>
 
-                {/* Checkbox on the right */}
                 <input
                   type="checkbox"
                   checked={selectedIndexes.includes(index)}

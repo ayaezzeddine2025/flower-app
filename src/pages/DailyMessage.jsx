@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { flowers } from "../data/flowers";
 import "./DailyMessage.css";
+import axios from "axios"; // new import
 
 const messages = [
   "Remember to smile today!",
@@ -69,25 +70,29 @@ function DailyMessage() {
     setDisplayMessage(messages[randomMsgIndex]);
   }, []);
 
-  const saveNote = () => {
+  const saveNote = async () => {
     if (!note.trim()) {
       alert("Please write something before saving!");
       return;
     }
 
-    const allNotes = JSON.parse(localStorage.getItem("Notes") || "[]");
-    allNotes.push({
-      flowerImg: flower.img,
-      flowerName: flower.name,
-      note: note.trim(),
-      date: new Date().toISOString(),
-      username: currentUser,
-    });
-    localStorage.setItem("Notes", JSON.stringify(allNotes));
+    try {
+      // POST note to backend API
+      await axios.post("http://localhost:5000/notes", {
+        flowerName: flower.name,
+        flowerImg: flower.img,
+        note: note.trim(),
+        username: currentUser,
+        date: new Date().toISOString()
+      });
 
-    window.dispatchEvent(new Event("storage"));
-    setNote("");
-    alert("Your note is saved! It will appear on the Home page immediately.");
+      setNote("");
+      alert("Your note is saved! It will appear on the Home page immediately.");
+
+    } catch (err) {
+      console.error("Error saving note:", err);
+      alert("Failed to save note. Please try again.");
+    }
   };
 
   if (!flower) return <p className="message-warning">Loading...</p>;
