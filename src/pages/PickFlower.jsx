@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { flowers } from "../data/flowers";
 import "./PickFlower.css";
-import axios from "axios"; // new import
+import axios from "axios";
 
 function PickFlower() {
   const [selected, setSelected] = useState(null);

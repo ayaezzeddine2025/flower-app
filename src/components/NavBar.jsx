@@ -8,37 +8,57 @@ function NavBar({ currentUser, onLogin, onLogout }) {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
 
-  const handleLogin = () => {
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const user = users.find(u => u.username === username && u.password === password);
-    if (user) {
-      onLogin(username);
-      alert("Login successful!");
-      setUsername("");
-      setPassword("");
-      setIsLoginOpen(false);
-    } else {
-      alert("Invalid username or password!");
+  const backendUrl = "https://your-backend.onrender.com"; // replace with your deployed backend URL
+
+  const handleLogin = async () => {
+    try {
+      const res = await fetch(`${backendUrl}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        onLogin(data.user);
+        alert("Login successful!");
+        setUsername("");
+        setPassword("");
+        setIsLoginOpen(false);
+      } else {
+        alert(data.error || "Invalid username or password!");
+      }
+    } catch (err) {
+      alert("Server error: " + err.message);
     }
   };
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     if (password.length < 6) {
       alert("Password must be at least 6 characters!");
       return;
     }
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    if (users.find(u => u.username === username)) {
-      alert("Username already exists!");
-      return;
+
+    try {
+      const res = await fetch(`${backendUrl}/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        onLogin(username);
+        alert("Signup successful!");
+        setUsername("");
+        setPassword("");
+        setIsSignupOpen(false);
+      } else {
+        alert(data.error || "Signup failed!");
+      }
+    } catch (err) {
+      alert("Server error: " + err.message);
     }
-    users.push({ username, password, history: [] });
-    localStorage.setItem("users", JSON.stringify(users));
-    onLogin(username);
-    alert("Signup successful!");
-    setUsername("");
-    setPassword("");
-    setIsSignupOpen(false);
   };
 
   return (
@@ -108,4 +128,3 @@ function NavBar({ currentUser, onLogin, onLogout }) {
 }
 
 export default NavBar;
-
