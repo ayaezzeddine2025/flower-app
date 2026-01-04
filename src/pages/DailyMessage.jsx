@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { flowers } from "../data/flowers";
 import "./DailyMessage.css";
-import axios from "axios"; // new import
+import axios from "axios";
 
 const messages = [
   "Remember to smile today!",
