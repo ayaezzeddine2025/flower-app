@@ -21,7 +21,6 @@ const messages = [
   "Learn today, lead tomorrow",
   "Believe in yourself, always",
   "Trust your journey",
-  "You are capable of amazing things.",
   "Don't stop until you're proud.",
   "Struggle today, strength tomorrow.",
   "Success is built one step at a time.",
@@ -41,22 +40,19 @@ const messages = [
   "Don't be afraid to start over."
 ];
 
-function DailyMessage() {
+function DailyMessage({ currentUser }) {
   const [flower, setFlower] = useState(null);
   const [note, setNote] = useState("");
   const [displayMessage, setDisplayMessage] = useState("");
-
-  const currentUser = localStorage.getItem("currentUser") || "guest";
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Get the flower selected by the user on PickFlower page
     const storedFlower = localStorage.getItem("selectedFlower");
     let selectedFlower;
 
     if (storedFlower) {
       selectedFlower = JSON.parse(storedFlower);
     } else {
-      // Fallback to a random flower if none was selected
       const randomIndex = Math.floor(Math.random() * flowers.length);
       selectedFlower = {
         img: flowers[randomIndex].img,
@@ -65,7 +61,6 @@ function DailyMessage() {
     }
 
     setFlower(selectedFlower);
-
     const randomMsgIndex = Math.floor(Math.random() * messages.length);
     setDisplayMessage(messages[randomMsgIndex]);
   }, []);
@@ -75,24 +70,27 @@ function DailyMessage() {
       alert("Please write something before saving!");
       return;
     }
+    if (!currentUser) {
+      alert("Please log in to save your note.");
+      return;
+    }
 
+    setLoading(true);
     try {
-      // POST note to backend API
       await axios.post("http://localhost:5000/notes", {
-        flowerName: flower.name,
-        flowerImg: flower.img,
+        flowerName: flower?.name || "",
+        flowerImg: flower?.img || "",
         note: note.trim(),
-        username: currentUser,
-        date: new Date().toISOString()
+        username: currentUser
       });
 
       setNote("");
       alert("Your note is saved! It will appear on the Home page immediately.");
-
     } catch (err) {
       console.error("Error saving note:", err);
       alert("Failed to save note. Please try again.");
     }
+    setLoading(false);
   };
 
   if (!flower) return <p className="message-warning">Loading...</p>;
@@ -114,8 +112,8 @@ function DailyMessage() {
           onChange={(e) => setNote(e.target.value)}
           placeholder="Write your note here..."
         />
-        <button onClick={saveNote} disabled={!note.trim()}>
-          Save Note
+        <button onClick={saveNote} disabled={!note.trim() || loading}>
+          {loading ? "Saving..." : "Save Note"}
         </button>
       </div>
     </div>

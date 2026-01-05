@@ -2,63 +2,52 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 
-function NavBar({ currentUser, onLogin, onLogout }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+function NavBar({ currentUser, onLogin, onSignup, onLogout }) {
+  const [loginData, setLoginData] = useState({ username: "", password: "" });
+  const [signupData, setSignupData] = useState({ username: "", password: "" });
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const backendUrl = "https://your-backend.onrender.com"; // replace with your deployed backend URL
-
-  const handleLogin = async () => {
-    try {
-      const res = await fetch(`${backendUrl}/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        onLogin(data.user);
-        alert("Login successful!");
-        setUsername("");
-        setPassword("");
-        setIsLoginOpen(false);
-      } else {
-        alert(data.error || "Invalid username or password!");
-      }
-    } catch (err) {
-      alert("Server error: " + err.message);
-    }
+  const handleLoginChange = (e) => {
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
 
-  const handleSignup = async () => {
-    if (password.length < 6) {
-      alert("Password must be at least 6 characters!");
+  const handleSignupChange = (e) => {
+    setSignupData({ ...signupData, [e.target.name]: e.target.value });
+  };
+
+  const handleSignupClick = async (e) => {
+    e.preventDefault();
+    if (signupData.password.length < 6) {
+      setError("Password must be at least 6 characters!");
       return;
     }
-
+    setLoading(true);
     try {
-      const res = await fetch(`${backendUrl}/signup`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        onLogin(username);
-        alert("Signup successful!");
-        setUsername("");
-        setPassword("");
-        setIsSignupOpen(false);
-      } else {
-        alert(data.error || "Signup failed!");
-      }
+      await onSignup(signupData.username, signupData.password);
+      setSignupData({ username: "", password: "" });
+      setIsSignupOpen(false);
+      setError("");
     } catch (err) {
-      alert("Server error: " + err.message);
+      setError(err.response?.data?.error || "Signup failed. Please try again.");
     }
+    setLoading(false);
+  };
+
+  const handleLoginClick = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await onLogin(loginData.username, loginData.password);
+      setLoginData({ username: "", password: "" });
+      setIsLoginOpen(false);
+      setError("");
+    } catch (err) {
+      setError(err.response?.data?.error || "Login failed. Please try again.");
+    }
+    setLoading(false);
   };
 
   return (
@@ -86,42 +75,54 @@ function NavBar({ currentUser, onLogin, onLogout }) {
         )}
       </div>
 
-      {/* Login Form */}
+      {error && <div className="error-message">{error}</div>}
+
       {isLoginOpen && !currentUser && (
-        <div className="nav-form">
+        <form className="nav-form" onSubmit={handleLoginClick}>
           <input
             type="text"
+            name="username"
             placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={loginData.username}
+            onChange={handleLoginChange}
+            required
           />
           <input
             type="password"
+            name="password"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={loginData.password}
+            onChange={handleLoginChange}
+            required
           />
-          <button onClick={handleLogin}>Login</button>
-        </div>
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
       )}
 
-      {/* Signup Form */}
       {isSignupOpen && !currentUser && (
-        <div className="nav-form">
+        <form className="nav-form" onSubmit={handleSignupClick}>
           <input
             type="text"
+            name="username"
             placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={signupData.username}
+            onChange={handleSignupChange}
+            required
           />
           <input
             type="password"
+            name="password"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={signupData.password}
+            onChange={handleSignupChange}
+            required
           />
-          <button onClick={handleSignup}>Signup</button>
-        </div>
+          <button type="submit" disabled={loading}>
+            {loading ? "Signing up..." : "Signup"}
+          </button>
+        </form>
       )}
     </nav>
   );

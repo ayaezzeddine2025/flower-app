@@ -3,20 +3,20 @@ import { flowers } from "../data/flowers";
 import "./Timeline.css";
 import axios from "axios";
 
-function Timeline() {
-  const currentUser = localStorage.getItem("currentUser");
+function Timeline({ currentUser }) {
   const [history, setHistory] = useState([]);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
 
-  // Fetch user history from backend
   useEffect(() => {
     const fetchHistory = async () => {
       if (!currentUser) return;
       try {
-        const res = await axios.get(`http://localhost:5000/history?username=${currentUser}`);
+        const res = await axios.get(
+          `http://localhost:5000/flower_history?username=${currentUser}`
+        );
         setHistory(res.data);
       } catch (err) {
-        console.error("Error fetching history:", err);
+        console.error("❌ Error fetching history:", err);
       }
     };
     fetchHistory();
@@ -36,18 +36,18 @@ function Timeline() {
     if (!window.confirm("Are you sure you want to delete the selected entries?")) return;
 
     try {
-      // Delete selected entries from backend
-      const selectedIds = selectedIndexes.map(i => history[i].id);
+      const selectedIds = selectedIndexes.map((i) => history[i].id);
       await Promise.all(
-        selectedIds.map(id => axios.delete(`http://localhost:5000/history/${id}`))
+        selectedIds.map((id) =>
+          axios.delete(`http://localhost:5000/flower_history/${id}`)
+        )
       );
 
-      // Update local state
       const newHistory = history.filter((_, idx) => !selectedIndexes.includes(idx));
       setHistory(newHistory);
       setSelectedIndexes([]);
     } catch (err) {
-      console.error("Error deleting entries:", err);
+      console.error("❌ Error deleting entries:", err);
       alert("Failed to delete entries.");
     }
   };
@@ -67,23 +67,37 @@ function Timeline() {
       ) : (
         <ul>
           {history.map((entry, index) => {
-            const flower = flowers.find(f => f.id === entry.flowerId);
-            if (!flower) return null;
+            const flower =
+              flowers.find((f) => f.id === entry.flowerId) || {
+                img: entry.flowerImg,
+                name: entry.flowerName,
+              };
 
             return (
               <li
-                key={entry.id} // use backend id
+                key={entry.id}
                 className={`timeline-entry ${entry.favorite ? "favorite" : ""} ${
                   selectedIndexes.includes(index) ? "selected" : ""
                 }`}
               >
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <img src={flower.img} alt={flower.name} />
+                  {flower.img && (
+                    <img
+                      src={flower.img}
+                      alt={flower.name}
+                      className="timeline-flower-img"
+                    />
+                  )}
                   <div className="entry-details">
                     <span className="flower-name">
-                      {flower.name} {entry.favorite && <span className="flower-favorite">★</span>}
+                      {flower.name}{" "}
+                      {entry.favorite && (
+                        <span className="flower-favorite">★ Favorite</span>
+                      )}
                     </span>
-                    <span className="flower-date">{new Date(entry.date).toLocaleDateString()}</span>
+                    <span className="flower-date">
+                      {entry.date && new Date(entry.date).toLocaleDateString()}
+                    </span>
                     {entry.note && <p className="flower-note">Note: {entry.note}</p>}
                   </div>
                 </div>

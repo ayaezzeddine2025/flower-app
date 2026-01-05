@@ -3,47 +3,56 @@ import { flowers } from "../data/flowers";
 import "./PickFlower.css";
 import axios from "axios";
 
-function PickFlower() {
+function PickFlower({ currentUser }) {
   const [selected, setSelected] = useState(null);
-  const currentUser = localStorage.getItem("currentUser");
+  const [entryId, setEntryId] = useState(null); // ✅ store the DB row id
 
+  // Handle flower selection
   const handleSelect = async (flower) => {
     setSelected(flower);
 
-    const audio = new Audio(flower.sound);
-    audio.play();
+    // Play sound if available
+    if (flower.sound) {
+      const audio = new Audio(flower.sound);
+      audio.play();
+    }
 
-    // Save selection to backend history
+    // Save selected flower in localStorage for DailyMessage
+    localStorage.setItem(
+      "selectedFlower",
+      JSON.stringify({ id: flower.id, name: flower.name, img: flower.img })
+    );
+
+    // Save to backend history once
     if (currentUser) {
       try {
-        await axios.post("http://localhost:5000/history", {
+        const res = await axios.post("http://localhost:5000/flower_history", {
           username: currentUser,
           flowerId: flower.id,
           flowerName: flower.name,
-          date: new Date(),
           favorite: false,
+          note: ""
         });
+        setEntryId(res.data.id); // ✅ capture the inserted row id
+        console.log("✅ Flower saved to timeline");
       } catch (err) {
-        console.error("Error saving history:", err);
+        console.error("❌ Error saving history:", err);
       }
     }
   };
 
+  // Update favorite status instead of inserting again
   const addToFavorites = async () => {
-    if (!selected || !currentUser) return;
+    if (!selected || !currentUser || !entryId) return;
 
     try {
-      await axios.post("http://localhost:5000/history", {
-        username: currentUser,
-        flowerId: selected.id,
-        flowerName: selected.name,
-        date: new Date(),
-        favorite: true,
+      await axios.put(`http://localhost:5000/flower_history/${entryId}/favorite`, {
+        favorite: true
       });
-      alert(`${selected.name} added to favorites!`);
+      alert(`${selected.name} marked as favorite!`);
     } catch (err) {
-      console.error("Error adding to favorites:", err);
-      alert("Failed to add to favorites.");
+      console.error("❌ Error updating favorite:", err);
+      alert("Failed to update favorite.");
     }
   };
 
@@ -51,8 +60,12 @@ function PickFlower() {
     <div className="flower-page">
       {!selected ? (
         <div className="flower-grid">
-          {flowers.map(f => (
-            <div key={f.id} className="flower-card" onClick={() => handleSelect(f)}>
+          {flowers.map((f) => (
+            <div
+              key={f.id}
+              className="flower-card"
+              onClick={() => handleSelect(f)}
+            >
               <img src={f.img} alt={f.name} />
               <p>{f.name}</p>
             </div>
@@ -63,16 +76,33 @@ function PickFlower() {
           <img src={selected.img} alt={selected.name} />
           <div className="flower-info">
             <h2>{selected.name}</h2>
-            <p><strong>Meaning:</strong> {selected.meaning}</p>
-            <p><strong>Properties:</strong></p>
-            <ul>
-              {selected.properties.map((prop, index) => (
-                <li key={index}>{prop}</li>
-              ))}
-            </ul>
+
+            {/* Show meaning */}
+            {selected.meaning && (
+              <p>
+                <strong>Meaning:</strong> {selected.meaning}
+              </p>
+            )}
+
+            {/* Show properties */}
+            {selected.properties && selected.properties.length > 0 && (
+              <>
+                <p>
+                  <strong>Properties:</strong>
+                </p>
+                <ul>
+                  {selected.properties.map((prop, index) => (
+                    <li key={index}>{prop}</li>
+                  ))}
+                </ul>
+              </>
+            )}
 
             <button onClick={addToFavorites}>Add to Favorites</button>
-            <button onClick={() => setSelected(null)} style={{ marginLeft: "1rem" }}>
+            <button
+              onClick={() => setSelected(null)}
+              style={{ marginLeft: "1rem" }}
+            >
               Back to List
             </button>
           </div>

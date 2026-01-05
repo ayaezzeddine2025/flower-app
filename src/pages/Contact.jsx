@@ -1,55 +1,59 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./Contact.css";
-import axios from "axios"; // import Axios
 
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    if (!form.name || !form.email || !form.message) {
+      setStatus("❌ All fields are required.");
+      return;
+    }
 
     try {
       await axios.post("http://localhost:5000/contact", form);
-      alert("Thank you for contacting us! Your message has been sent.");
+      setStatus("✅ Message sent successfully!");
       setForm({ name: "", email: "", message: "" });
     } catch (err) {
-      console.error("Error sending message:", err);
-      alert("Failed to send message. Please try again later.");
+      console.error("❌ Error sending message:", err);
+      setStatus("❌ Failed to send message. Please try again.");
     }
-
-    setLoading(false);
   };
 
   return (
     <div className="contact-page">
       <h2>Contact Us</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="contact-form" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Name"
+          name="name"
           value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-          required
+          onChange={handleChange}
+          placeholder="Your Name"
         />
         <input
           type="email"
-          placeholder="Email"
+          name="email"
           value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          required
+          onChange={handleChange}
+          placeholder="Your Email"
         />
         <textarea
-          placeholder="Message"
+          name="message"
           value={form.message}
-          onChange={(e) => setForm({ ...form, message: e.target.value })}
-          required
+          onChange={handleChange}
+          placeholder="Your Message"
         />
-        <button type="submit" disabled={loading}>
-          {loading ? "Sending..." : "Send"}
-        </button>
+        <button type="submit">Send</button>
       </form>
+      {status && <p className="status-message">{status}</p>}
     </div>
   );
 }
